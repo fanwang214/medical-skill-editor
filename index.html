@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>医疗 Skill 可视化编辑器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Skill Studio</p>
+          <h1>医疗 Skill 可视化编辑器</h1>
+          <p class="sync-status" id="syncStatus">正在连接后端...</p>
+        </div>
+        <div class="toolbar" aria-label="文件操作">
+          <button class="icon-button" id="resetButton" title="重置" aria-label="重置">
+            ↺
+          </button>
+          <button class="primary-button" id="saveVersionButton">保存版本</button>
+          <button class="primary-button" id="copyButton">复制 Markdown</button>
+          <button class="primary-button accent" id="downloadButton">下载 SKILL.md</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="sidebar" aria-label="章节">
+          <div class="sidebar-group">
+            <div class="sidebar-header">
+              <span>Skill</span>
+              <button class="icon-button small" id="newSkillButton" title="新增 Skill" aria-label="新增 Skill">
+                +
+              </button>
+            </div>
+            <nav class="skill-list" id="skillList"></nav>
+          </div>
+
+          <div class="sidebar-group">
+            <div class="sidebar-header">
+              <span>Prompt</span>
+              <button class="icon-button small" id="newPromptButton" title="新增 Prompt" aria-label="新增 Prompt">
+                +
+              </button>
+            </div>
+            <nav class="skill-list" id="promptList"></nav>
+          </div>
+
+          <div class="sidebar-group">
+            <button class="danger-button full-width" id="deleteDocumentButton">删除当前文档</button>
+          </div>
+
+          <div class="sidebar-group">
+            <div class="sidebar-header">
+              <span>章节</span>
+              <button class="icon-button small" id="addSectionButton" title="新增章节" aria-label="新增章节">
+                +
+              </button>
+            </div>
+            <nav class="section-list" id="sectionList"></nav>
+          </div>
+        </aside>
+
+        <section class="editor-panel" aria-label="编辑区">
+          <div class="meta-grid">
+            <label>
+              <span id="nameLabel">文档名称</span>
+              <input id="skillName" autocomplete="off" />
+            </label>
+            <label>
+              <span>页面标题</span>
+              <input id="skillTitle" autocomplete="off" />
+            </label>
+            <label class="wide">
+              <span>触发描述</span>
+              <textarea id="skillDescription" rows="2"></textarea>
+            </label>
+          </div>
+
+          <div class="audit-strip">
+            <label>
+              <span>修改人</span>
+              <input id="versionAuthor" placeholder="例如：张医生" autocomplete="off" />
+            </label>
+            <label>
+              <span>版本备注</span>
+              <input id="versionNote" placeholder="例如：补充 X 光质控规则" autocomplete="off" />
+            </label>
+          </div>
+
+          <div class="section-editor" id="sectionEditor"></div>
+        </section>
+
+        <section class="preview-panel" aria-label="预览区">
+          <div class="preview-tabs" role="tablist">
+            <button class="tab active" data-tab="readable" role="tab">阅读预览</button>
+            <button class="tab" data-tab="markdown" role="tab">Markdown</button>
+            <button class="tab" data-tab="diff" role="tab">修改对比</button>
+            <button class="tab" data-tab="history" role="tab">版本记录</button>
+          </div>
+          <div class="preview-content">
+            <article class="readable-preview" id="readablePreview"></article>
+            <pre class="markdown-preview hidden" id="markdownPreview"></pre>
+            <article class="diff-preview hidden" id="diffPreview"></article>
+            <article class="history-preview hidden" id="historyPreview"></article>
+          </div>
+        </section>
+      </main>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
